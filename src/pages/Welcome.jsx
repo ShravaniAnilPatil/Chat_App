@@ -1,6 +1,5 @@
 import React from "react";
-import "../styles/welcome.css"; // Import CSS directly
-
+import "../styles/welcome.css"; 
 const Welcome = () => {
   return (
     <div className="welcome">
@@ -13,6 +12,9 @@ const Welcome = () => {
           </a>
           <a href="/signup" className="button">
             Sign Up
+          </a>
+          <a href="/recivers" className="button">
+            Chat Now
           </a>
         </div>
       </div>

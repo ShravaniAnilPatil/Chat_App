@@ -40,7 +40,7 @@ const Login = () => {
         login({ email: data.email});
         localStorage.setItem("authToken", data.authToken); 
         setShowPopup(true);
-        navigate('/');
+        navigate('/recivers');
         setTimeout(() => {
           setShowPopup(false);
         }, 3000);

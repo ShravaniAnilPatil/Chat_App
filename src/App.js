@@ -6,6 +6,7 @@ import Chat from './components/Chat';
 import Signup from './pages/Signup';
 import Home from './pages/Welcome'
 import Profile from './components/profile'
+import ReceiverList from './components/ReceiverList';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
                 <Route path="/Signup" element={<Signup />} />
                 <Route path="/chat" element={<Chat />}/>
                 <Route path="/profile" element={<Profile/>}/>
+                <Route path="/recivers" element={<ReceiverList/>}/>
+                <Route path="/chat" element={<Chat/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

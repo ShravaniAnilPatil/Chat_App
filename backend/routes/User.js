@@ -134,5 +134,28 @@ router.put("/user/update", async (req, res) => {
       res.status(500).json({ message: "Server error" });
     }
   });
+  router.get('/checkReceiver', async (req, res) => {
+    const { receiver } = req.query;
+    
+    try {
+      const user = await User.findOne({ username: receiver });
+      if (user) {
+        return res.status(200).json({ exists: true });
+      } else {
+        return res.status(404).json({ exists: false });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error checking receiver' });
+    }
+  });
+
+  router.get('/users', async (req, res) => {
+    try {
+      const users = await User.find({}, 'username'); 
+      res.json(users);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching users" });
+    }
+  });
   
 module.exports = router;
