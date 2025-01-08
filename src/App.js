@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import { AuthProvider } from "./context/AuthContext";
 import Chat from './components/Chat';
 import Signup from './pages/Signup';
+import Home from './pages/Welcome'
+import Profile from './components/profile'
 
 function App() {
   return (
@@ -13,11 +15,12 @@ function App() {
       <BrowserRouter>
         {/* <Navbar /> */}
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 {/* <Route path="/Category" element={<Category />} /> */}
                 <Route path="/Signup" element={<Signup />} />
                 <Route path="/chat" element={<Chat />}/>
+                <Route path="/profile" element={<Profile/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

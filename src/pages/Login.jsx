@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "../styles/login.css";
+import styles from "../styles/login.module.css";
 import { AuthContext } from "../context/AuthContext";
+import Loginimg from "../images/login.png";
 
 
 const Login = () => {
@@ -22,7 +23,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/login/", {
+      const response = await fetch("http://localhost:5001/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,19 +35,16 @@ const Login = () => {
       console.log("data")
       console.log(data)
 
+    
       if (response.ok) {
-        // Assume the API returns user data and a token
-        login({ email: data.data });
-        console.log("login");
-        console.log(user);
-        localStorage.setItem("authToken", data.authToken); // Save token for future requests
+        login({ email: data.email});
+        localStorage.setItem("authToken", data.authToken); 
         setShowPopup(true);
+        navigate('/');
         setTimeout(() => {
           setShowPopup(false);
-          navigate("/");
         }, 3000);
       } else {
-        // Handle error message from API response
         setErrorMessage(data.message || "Login failed. Please try again.");
       }
     } catch (error) {
@@ -60,8 +58,8 @@ const Login = () => {
       <div className={styles["login-box"]}>
         <div className={styles["left-side"]}>
           <h2>Welcome Back!</h2>
-          <p>Log in to continue accessing your account and Schemes.</p>
-          {/* <img src={Loginimg} alt="Login" style={{ maxWidth: "300px", marginBottom: "20px" }} /> */}
+          <p>Log in to continue accessing your account and Chat</p>
+          <img src={Loginimg} alt="Login" style={{ maxWidth: "300px", marginBottom: "20px" }} />
         </div>
         <div className={styles["right-side"]}>
           <h2>Sign In</h2>

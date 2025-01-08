@@ -1,0 +1,131 @@
+/* General Page Styles */
+.signup-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f3e9ff; /* Light violet background */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Sign-up Box */
+  .signup-box {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Heading */
+  h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #5e35b1; /* Deep violet */
+  }
+  
+  /* Input Fields */
+  .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 6px;
+    color: #5e35b1; /* Deep violet */
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c1bcd3;
+    font-size: 16px;
+    background-color: #f9f7ff; /* Light violet */
+  }
+  
+  input:focus,
+  select:focus {
+    border-color: #5e35b1; /* Deep violet */
+    outline: none;
+  }
+  
+  /* Button */
+  .signup-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #7e57c2; /* Violet */
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-button:hover {
+    background-color: #5e35b1; /* Darker violet */
+  }
+  
+  /* Error Message */
+  .error-message {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+  }
+  
+  /* Login Link */
+  .login-link {
+    margin-top: 18px;
+    font-size: 15px;
+    color: #5e35b1;
+  }
+  
+  .login-link a {
+    color: #7e57c2;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Popup */
+  .popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #7e57c2; /* Violet */
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  

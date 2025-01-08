@@ -4,117 +4,135 @@ const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { authenticateUser } = require("../middleware/authMiddleware");
 
-router.post(
-  "/signup",
-  [
-    check("email", "Please include a valid email").isEmail(),
-    check("password", "Password must be 6 or more characters").isLength({
-      min: 6,
-    }),
-    check("username", "Username is required").notEmpty(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
+router.post("/signup", async (req, res) => {
     const { email, password, username, phone_number, state, gender } = req.body;
-
+  
+    if (!email || !password || !username || !phone_number || !state || !gender) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+  
     try {
-      let user = await User.findOne({ email });
-
-      if (user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: "User already exists" }] });
-      }
-
-      user = new User({
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      const newUser = new User({
         email,
-        password,
+        password: hashedPassword,
         username,
         phone_number,
         state,
         gender,
       });
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
-
-      await user.save();
-
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-
-      jwt.sign(
-        payload,
-        "yourSecretKey", 
-        { expiresIn: "1h" },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ authToken: token });
-        }
-      );
+  
+      await newUser.save();
+  
+      res.status(201).json({ message: "User created successfully" });
     } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server error");
+      console.error("Error during signup:", err);
+      res.status(500).json({ message: "Server error. Please try again later." });
     }
-  }
-);
+  });
+  
 
-router.post(
-  "/login",
-  [
-    check("email", "Please include a valid email").isEmail(),
-    check("password", "Password is required").exists(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
+  router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-
-    try {
-      let user = await User.findOne({ email });
-
-      if (!user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: "Invalid Credentials" }] });
-      }
-
-      const isMatch = await bcrypt.compare(password, user.password);
-
-      if (!isMatch) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: "Invalid Credentials" }] });
-      }
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-
-      jwt.sign(
-        payload,
-        "yourSecretKey", 
-        { expiresIn: "1h" },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ authToken: token });
-        }
-      );
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server error");
+  
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required." });
     }
-  }
-);
+  
+    try {
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(401).json({ message: "Invalid email or password." });
+      }
+  
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid email or password." });
+      }
+      res.status(200).json({ message: "Login successful", email: user.email });
+    } catch (err) {
+      console.error("Error during login:", err);
+      res.status(500).json({ message: "Server error. Please try again later." });
+    }
+  });
+  
+  router.get("/user/profile", async (req, res) => {
+    const { email } = req.query;  
+  
+    if (!email) {
+      return res.status(400).json({ message: "Email is required." });
+    }
+  
+    try {
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+
+      res.status(200).json({
+        email: user.email,
+        username: user.username,
+        phone_number: user.phone_number,
+        state: user.state,
+        gender: user.gender,
+      });
+    } catch (err) {
+      console.error("Error fetching user profile:", err);
+      res.status(500).json({ message: "Server error. Please try again later." });
+    }
+  });
+  
+router.put("/user/update", async (req, res) => {
+    const { email, username, phone_number, state, gender } = req.body;
+  
+    if (!email || !username || !phone_number || !state || !gender) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+  
+    try {
+      const updatedUser = await User.findOneAndUpdate(
+        { email },
+        { username, phone_number, state, gender },
+        { new: true }
+      );
+  
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found." });
+      }
+  
+      res.status(200).json({
+        message: "Profile updated successfully",
+        updatedUser,
+      });
+    } catch (err) {
+      console.error("Error updating user profile:", err);
+      res.status(500).json({ message: "Server error. Please try again later." });
+    }
+  });
+  
+  router.delete("/delete", async (req, res) => {
+    const { email } = req.body;
+  
+    if (!email) {
+      return res.status(400).json({ message: "Email is required." });
+    }
+  
+    try {
+      const deletedUser = await User.findOneAndDelete({ email }); // Use findOneAndDelete instead
+  
+      if (!deletedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      res.status(200).json({ message: "User successfully deleted" });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  
 module.exports = router;

@@ -1,0 +1,108 @@
+.profilePage {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f9;
+    min-height: 100vh;
+  }
+  
+  .profileCard {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 800px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .profileCard:hover {
+    transform: scale(1.02);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #4b0082;
+    margin-bottom: 20px;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .profileDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-group label {
+    font-weight: 600;
+    color: #4b0082;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  
+  .input-group input,
+  .input-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+  
+  .input-group input:focus,
+  .input-group select:focus {
+    border-color: #4b0082;
+    outline: none;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin: 10px auto;
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-button {
+    background-color: #6a0dad;
+    color: #fff;
+  }
+  
+  .edit-button:hover {
+    background-color: #4b0082;
+  }
+  
+  .logout-button {
+    background-color: #d11a2a;
+    color: #fff;
+  }
+  
+  .logout-button:hover {
+    background-color: #a81321;
+  }
+
+  .delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .delete-button:hover {
+    background-color: #ff1a1a;
+  }
+  
+  
