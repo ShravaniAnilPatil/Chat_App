@@ -121,76 +121,106 @@ const Profile = () => {
   if (isLoading) return <p className="text-center text-violet-600">Loading...</p>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-500 to-violet-800 flex items-center justify-center p-6">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-3xl">
-        <h1 className="text-2xl font-bold text-center text-violet-700 mb-6">Your Profile</h1>
+    <div className="min-h-screen bg-gradient-to-br from-violet-100 to-violet-200 flex items-center justify-center p-6">
+      <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-3xl">
+        <h1 className="text-3xl font-semibold text-center text-violet-700 mb-6">Profile</h1>
         <form onSubmit={handleUpdateProfile} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-violet-600">Username</label>
+              <label className="block text-sm font-medium text-violet-600">Username</label>
               <input
                 type="text"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
                 readOnly={!editMode}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:outline-none ${
+                className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:outline-none ${
                   editMode
-                    ? "border-gray-300 focus:ring-violet-500"
-                    : "border-gray-100 bg-gray-100 cursor-not-allowed"
+                    ? "border-violet-300 focus:ring-violet-500"
+                    : "border-gray-200 bg-gray-100 cursor-not-allowed"
                 }`}
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-violet-600">Email</label>
+              <label className="block text-sm font-medium text-violet-600">Email</label>
               <input
                 type="text"
                 value={profile?.email || ""}
                 readOnly
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                className="w-full px-4 py-2 border border-gray-200 rounded-md bg-gray-100 cursor-not-allowed"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-violet-600">Phone Number</label>
+              <label className="block text-sm font-medium text-violet-600">Phone Number</label>
               <input
                 type="text"
                 name="phone_number"
                 value={formData.phone_number}
                 onChange={handleChange}
                 readOnly={!editMode}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:outline-none ${
+                className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:outline-none ${
                   editMode
-                    ? "border-gray-300 focus:ring-violet-500"
-                    : "border-gray-100 bg-gray-100 cursor-not-allowed"
+                    ? "border-violet-300 focus:ring-violet-500"
+                    : "border-gray-200 bg-gray-100 cursor-not-allowed"
                 }`}
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-violet-600">State</label>
-              <input
-                type="text"
-                name="state"
-                value={formData.state}
-                onChange={handleChange}
-                readOnly={!editMode}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:outline-none ${
-                  editMode
-                    ? "border-gray-300 focus:ring-violet-500"
-                    : "border-gray-100 bg-gray-100 cursor-not-allowed"
-                }`}
-              />
-            </div>
+  <label className="block text-sm font-medium text-violet-600">State</label>
+  <select
+    name="state"
+    value={formData.state}
+    onChange={handleChange}
+    disabled={!editMode}
+    className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:outline-none ${
+      editMode
+        ? "border-violet-300 focus:ring-violet-500"
+        : "border-gray-200 bg-gray-100 cursor-not-allowed"
+    }`}
+  >
+    <option value="">Select a State</option>
+    <option value="Andhra Pradesh">Andhra Pradesh</option>
+    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+    <option value="Assam">Assam</option>
+    <option value="Bihar">Bihar</option>
+    <option value="Chhattisgarh">Chhattisgarh</option>
+    <option value="Goa">Goa</option>
+    <option value="Gujarat">Gujarat</option>
+    <option value="Haryana">Haryana</option>
+    <option value="Himachal Pradesh">Himachal Pradesh</option>
+    <option value="Jharkhand">Jharkhand</option>
+    <option value="Karnataka">Karnataka</option>
+    <option value="Kerala">Kerala</option>
+    <option value="Madhya Pradesh">Madhya Pradesh</option>
+    <option value="Maharashtra">Maharashtra</option>
+    <option value="Manipur">Manipur</option>
+    <option value="Meghalaya">Meghalaya</option>
+    <option value="Mizoram">Mizoram</option>
+    <option value="Nagaland">Nagaland</option>
+    <option value="Odisha">Odisha</option>
+    <option value="Punjab">Punjab</option>
+    <option value="Rajasthan">Rajasthan</option>
+    <option value="Sikkim">Sikkim</option>
+    <option value="Tamil Nadu">Tamil Nadu</option>
+    <option value="Telangana">Telangana</option>
+    <option value="Tripura">Tripura</option>
+    <option value="Uttar Pradesh">Uttar Pradesh</option>
+    <option value="Uttarakhand">Uttarakhand</option>
+    <option value="West Bengal">West Bengal</option>
+  </select>
+</div>
+
             <div>
-              <label className="block text-sm font-semibold text-violet-600">Gender</label>
+              <label className="block text-sm font-medium text-violet-600">Gender</label>
               <select
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
                 disabled={!editMode}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:outline-none ${
+                className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:outline-none ${
                   editMode
-                    ? "border-gray-300 focus:ring-violet-500"
-                    : "border-gray-100 bg-gray-100 cursor-not-allowed"
+                    ? "border-violet-300 focus:ring-violet-500"
+                    : "border-gray-200 bg-gray-100 cursor-not-allowed"
                 }`}
               >
                 <option value="Male">Male</option>
@@ -199,28 +229,28 @@ const Profile = () => {
               </select>
             </div>
           </div>
-          <div className="flex flex-wrap items-center justify-center space-x-4">
+          <div className="flex items-center justify-center space-x-4">
             {editMode ? (
               <>
                 <button
                   type="button"
                   onClick={handleCancelEdit}
-                  className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition"
+                  className="bg-gray-500 text-white px-5 py-2 rounded-md hover:bg-gray-600"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-violet-600 text-white px-6 py-2 rounded-lg hover:bg-violet-700 transition"
+                  className="bg-violet-600 text-white px-5 py-2 rounded-md hover:bg-violet-700"
                 >
-                  Save Changes
+                  Save
                 </button>
               </>
             ) : (
               <button
                 type="button"
                 onClick={handleEditClick}
-                className="bg-violet-600 text-white px-6 py-2 rounded-lg hover:bg-violet-700 transition"
+                className="bg-violet-600 text-white px-5 py-2 rounded-md hover:bg-violet-700"
               >
                 Edit Profile
               </button>
@@ -228,14 +258,14 @@ const Profile = () => {
             <button
               type="button"
               onClick={handleLogout}
-              className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition"
+              className="bg-red-500 text-white px-5 py-2 rounded-md hover:bg-red-600"
             >
               Logout
             </button>
             <button
               type="button"
               onClick={handleDeleteAccount}
-              className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition"
+              className="bg-gray-600 text-white px-5 py-2 rounded-md hover:bg-gray-700"
             >
               Delete Account
             </button>
